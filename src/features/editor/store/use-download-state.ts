@@ -1,5 +1,6 @@
 import { IDesign } from "@designcombo/types";
 import { create } from "zustand";
+import { canvasBridge } from "../services/canvasBridge";
 interface Output {
   url: string;
   type: string;
@@ -91,6 +92,13 @@ export const useDownloadState = create<DownloadState>((set, get) => ({
 
           if (status === "COMPLETED") {
             set({ exporting: false, output: { url, type: get().exportType } });
+            
+            // 🎬 通知 canvas-flow 导出完成
+            canvasBridge.notifyExportComplete({
+              id: jobId,
+              url,
+              duration: statusInfo.render?.duration,
+            });
           } else if (status === "PROCESSING" || status === "PENDING") {
             setTimeout(checkStatus, 2500);
           }

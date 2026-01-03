@@ -30,6 +30,7 @@ import { ITrackItem } from "@designcombo/types";
 import useLayoutStore from "./store/use-layout-store";
 import ControlItemHorizontal from "./control-item-horizontal";
 import { design } from "./mock";
+import { canvasBridge } from "./services/canvasBridge";
 
 const stateManager = new StateManager({
 	size: {
@@ -132,6 +133,8 @@ const Editor = ({ tempId, id }: { tempId?: string; id?: string }) => {
 
 	useEffect(() => {
 		setLoaded(true);
+		// 初始化 canvas-flow 通信桥接
+		canvasBridge.init();
 	}, []);
 
 	return (

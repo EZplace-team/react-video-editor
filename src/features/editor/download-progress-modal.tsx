@@ -12,7 +12,7 @@ const DownloadProgressModal = () => {
 
   const handleDownload = async () => {
     if (output?.url) {
-      await download(output.url, "untitled.mp4");
+      await download(output.url, "untitled");
       console.log("downloading");
     }
   };
